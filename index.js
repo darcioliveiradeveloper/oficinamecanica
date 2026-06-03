@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 require('dotenv').config();
+
+const connectDB = require('./db'); // conexão com MongoDB
+const oficinaRoutes = require('./src/routes/oficinaRoutes'); // rotas da Oficina
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,17 +12,18 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Rotas básicas
+// Rotas principais
+app.use('/api/oficinas', oficinaRoutes);
+
+// Rota inicial de teste
 app.get('/', (req, res) => {
   res.send('API Oficina Mecânica funcionando 🚗🔧');
 });
 
-// Conexão com MongoDB
-const connectDB = require('./db');
+// Conectar ao MongoDB
 connectDB();
 
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
-
