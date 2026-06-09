@@ -2,25 +2,25 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const connectDB = require('./db'); // conexão com MongoDB
-const oficinaRoutes = require('./src/routes/oficinaRoutes'); // rotas da Oficina
+const connectDB = require('./db');
+const oficinaRoutes = require('./src/routes/oficinaRoutes');
+const veiculoRoutes = require('./src/routes/veiculoRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
 // Rotas principais
 app.use('/api/oficinas', oficinaRoutes);
+app.use('/api/veiculos', veiculoRoutes);
 
 // Rota inicial de teste
 app.get('/', (req, res) => {
   res.send('API Oficina Mecânica funcionando 🚗🔧');
 });
 
-// Conectar ao MongoDB e iniciar servidor
 connectDB()
   .then(() => {
     app.listen(PORT, () => {

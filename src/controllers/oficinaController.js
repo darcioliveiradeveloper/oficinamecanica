@@ -66,7 +66,7 @@ exports.getVehiclesByOficina = async (req, res) => {
       return res.status(404).json({ message: 'Oficina não encontrada' });
     }
     if (vehicles.length === 0) {
-      return res.status(404).json({ message: 'Nenhum veículo atendido por esta oficina ainda' });
+      return res.status(404).json({ message: 'Nenhum veículo cadastrado para esta oficina no momento' });
     }
     res.json({
       message: 'Lista de veículos atendidos pela oficina',
@@ -76,4 +76,3 @@ exports.getVehiclesByOficina = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-

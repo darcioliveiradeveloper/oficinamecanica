@@ -16,6 +16,7 @@ const OficinaSchema = new mongoose.Schema({
   vehicles: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Vehicle'
+    
   }]
 }, {
   timestamps: true
