@@ -20,10 +20,15 @@ app.get('/', (req, res) => {
   res.send('API Oficina Mecânica funcionando 🚗🔧');
 });
 
-// Conectar ao MongoDB
-connectDB();
+// Conectar ao MongoDB e iniciar servidor
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Erro ao conectar no MongoDB:', error.message);
+  });
 
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+  

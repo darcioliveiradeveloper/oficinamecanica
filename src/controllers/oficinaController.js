@@ -1,10 +1,13 @@
-const oficinaService = require('../services/oficinaServices');
+const oficinaService = require('../services/oficinaService');
 
 // Criar Oficina
 exports.createOficina = async (req, res) => {
   try {
     const oficina = await oficinaService.createOficina(req.body);
-    res.status(201).json(oficina);
+    res.status(201).json({
+      message: 'Oficina cadastrada com sucesso 🚀',
+      data: oficina
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -14,7 +17,13 @@ exports.createOficina = async (req, res) => {
 exports.getOficinas = async (req, res) => {
   try {
     const oficinas = await oficinaService.getOficinas();
-    res.json(oficinas);
+    if (oficinas.length === 0) {
+      return res.status(404).json({ message: 'Nenhuma oficina cadastrada até o momento' });
+    }
+    res.json({
+      message: 'Lista de oficinas encontradas',
+      data: oficinas
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -24,8 +33,13 @@ exports.getOficinas = async (req, res) => {
 exports.updateOficina = async (req, res) => {
   try {
     const oficina = await oficinaService.updateOficina(req.params.id, req.body);
-    if (!oficina) return res.status(404).json({ message: 'Oficina não encontrada' });
-    res.json(oficina);
+    if (!oficina) {
+      return res.status(404).json({ message: 'Oficina não encontrada' });
+    }
+    res.json({
+      message: 'Dados da oficina atualizados com sucesso ✅',
+      data: oficina
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -35,8 +49,10 @@ exports.updateOficina = async (req, res) => {
 exports.deleteOficina = async (req, res) => {
   try {
     const oficina = await oficinaService.deleteOficina(req.params.id);
-    if (!oficina) return res.status(404).json({ message: 'Oficina não encontrada' });
-    res.json({ message: 'Oficina deletada com sucesso' });
+    if (!oficina) {
+      return res.status(404).json({ message: 'Oficina não encontrada' });
+    }
+    res.json({ message: 'Oficina deletada com sucesso 🗑️' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -46,8 +62,16 @@ exports.deleteOficina = async (req, res) => {
 exports.getVehiclesByOficina = async (req, res) => {
   try {
     const vehicles = await oficinaService.getVehiclesByOficina(req.params.id);
-    if (!vehicles) return res.status(404).json({ message: 'Oficina não encontrada' });
-    res.json(vehicles);
+    if (vehicles === null) {
+      return res.status(404).json({ message: 'Oficina não encontrada' });
+    }
+    if (vehicles.length === 0) {
+      return res.status(404).json({ message: 'Nenhum veículo atendido por esta oficina ainda' });
+    }
+    res.json({
+      message: 'Lista de veículos atendidos pela oficina',
+      data: vehicles
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

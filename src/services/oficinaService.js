@@ -1,4 +1,4 @@
-const Oficina = require('../models/oficina');
+const Oficina = require('../models/Oficina');
 
 // Criar Oficina
 exports.createOficina = async (data) => {
