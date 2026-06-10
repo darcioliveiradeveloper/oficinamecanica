@@ -29,6 +29,22 @@ exports.getOficinas = async (req, res) => {
   }
 };
 
+// Listar Oficina por ID
+exports.getOficinaById = async (req, res) => {
+  try {
+    const oficina = await oficinaService.getOficinaById(req.params.id);
+    if (!oficina) {
+      return res.status(404).json({ message: 'Oficina não encontrada' });
+    }
+    res.json({
+      message: 'Oficina encontrada',
+      data: oficina
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Atualizar Oficina
 exports.updateOficina = async (req, res) => {
   try {

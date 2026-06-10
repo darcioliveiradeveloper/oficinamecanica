@@ -29,6 +29,23 @@ exports.getVeiculos = async (req, res) => {
   }
 };
 
+
+// Listar Veículo por ID
+exports.getVeiculoById = async (req, res) => {
+  try {
+    const veiculo = await veiculoService.getVeiculosById(req.params.id);
+    if (!veiculo) {
+      return res.status(404).json({ message: 'Veículo não encontrado' });
+    }
+    res.json({
+      message: 'Veículo encontrado',
+      data: veiculo
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Atualizar Veículo
 exports.updateVeiculo = async (req, res) => {
   try {

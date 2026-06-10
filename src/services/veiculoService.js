@@ -11,6 +11,11 @@ exports.getVeiculos = async () => {
   return await Veiculo.find();
 };
 
+// Listar Veículo por ID
+exports.getVeiculosById = async (id) => {
+  return await Veiculo.findById(id);
+};
+
 // Atualizar Veículo
 exports.updateVeiculo = async (id, data) => {
   return await Veiculo.findByIdAndUpdate(id, data, { new: true });

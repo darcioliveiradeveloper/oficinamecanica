@@ -5,6 +5,7 @@ const veiculoController = require('../controllers/veiculoController');
 // Rotas CRUD Veículo
 router.post('/', veiculoController.createVeiculo);
 router.get('/', veiculoController.getVeiculos);
+router.get('/:id', veiculoController.getVeiculoById);
 router.put('/:id', veiculoController.updateVeiculo);
 router.delete('/:id', veiculoController.deleteVeiculo);
 router.get('/:id/maintenances', veiculoController.getMaintenancesByVeiculo);

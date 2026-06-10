@@ -11,6 +11,11 @@ exports.getOficinas = async () => {
   return await Oficina.find();
 };
 
+// Listar Oficina por ID
+exports.getOficinaById = async (id) => {
+  return await Oficina.findById(id);
+};
+
 // Atualizar Oficina
 exports.updateOficina = async (id, data) => {
   return await Oficina.findByIdAndUpdate(id, data, { new: true });

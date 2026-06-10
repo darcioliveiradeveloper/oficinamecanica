@@ -5,6 +5,7 @@ const oficinaController = require('../controllers/oficinaController');
 // Rotas CRUD Oficina
 router.post('/', oficinaController.createOficina);
 router.get('/', oficinaController.getOficinas);
+router.get('/:id', oficinaController.getOficinaById);
 router.put('/:id', oficinaController.updateOficina);
 router.delete('/:id', oficinaController.deleteOficina);
 router.get('/:id/vehicles', oficinaController.getVehiclesByOficina);

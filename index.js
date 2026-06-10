@@ -5,6 +5,7 @@ require('dotenv').config();
 const connectDB = require('./db');
 const oficinaRoutes = require('./src/routes/oficinaRoutes');
 const veiculoRoutes = require('./src/routes/veiculoRoutes');
+const manutencaoRoutes = require('./src/routes/manutencaoRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.use(express.json());
 // Rotas principais
 app.use('/api/oficinas', oficinaRoutes);
 app.use('/api/veiculos', veiculoRoutes);
+app.use('/api/manutencoes', manutencaoRoutes);
 
 // Rota inicial de teste
 app.get('/', (req, res) => {
