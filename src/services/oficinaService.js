@@ -1,10 +1,16 @@
 const Oficina = require('../models/Oficina');
 
 // Criar Oficina
+// src/services/oficinaService.js
 exports.createOficina = async (data) => {
+  const oficinaExistente = await Oficina.findOne({ name: data.name });
+  if (oficinaExistente) {
+    throw new Error('Já existe uma oficina cadastrada com este nome');
+  }
   const oficina = new Oficina(data);
   return await oficina.save();
 };
+
 
 // Listar Oficinas
 exports.getOficinas = async () => {

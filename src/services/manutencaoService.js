@@ -7,32 +7,44 @@ function calcularTotal(services) {
   return services.reduce((sum, service) => sum + service.price, 0);
 }
 
-// Criar Manutenção com validação e atualização de relacionamentos
+// src/services/manutencaoService.js
 exports.createManutencao = async (data) => {
-  // Verificar se veículo existe
-  const veiculoExistente = await Veiculo.findById(data.veiculo);
-  if (!veiculoExistente) {
-    throw new Error('Veículo não encontrado, verifique o ID informado');
+
+// Validações de existência já implementadas
+const veiculoExistente = await Veiculo.findById(data.veiculo);
+if (!veiculoExistente) throw new Error('Veículo não encontrado');
+
+const oficinaExistente = await Oficina.findById(data.oficina);
+if (!oficinaExistente) throw new Error('Oficina não encontrada');
+
+ // Normaliza a data: se não vier na requisição, usa hoje
+ let dataManutencao = data.date ? new Date(data.date) : new Date();
+ dataManutencao.setHours(0, 0, 0, 0); // força horário 00:00:00
+ 
+
+  // Verificar duplicidade: mesma oficina, mesmo veículo e mesma data
+  const manutencaoExistente = await Manutencao.findOne({
+    veiculo: data.veiculo,
+    oficina: data.oficina,
+    date: dataManutencao
+  });
+    
+  if (manutencaoExistente) {
+    throw new Error('Já existe uma manutenção cadastrada para este veículo nesta oficina na mesma data');
   }
 
-  // Verificar se oficina existe
-  const oficinaExistente = await Oficina.findById(data.oficina);
-  if (!oficinaExistente) {
-    throw new Error('Oficina não encontrada, verifique o ID informado');
-  }
+  
 
   // Calcular totalCost
-  data.totalCost = calcularTotal(data.services);
+  data.totalCost = data.services.reduce((sum, s) => sum + s.price, 0);
 
-  // Criar manutenção
   const manutencao = new Manutencao(data);
   await manutencao.save();
 
-  // Atualizar veículo: adicionar manutenção
+  // Atualizar veículo e oficina
   veiculoExistente.maintenances.push(manutencao._id);
   await veiculoExistente.save();
 
-  // Atualizar oficina: adicionar veículo (se ainda não estiver listado)
   if (!oficinaExistente.vehicles.includes(veiculoExistente._id)) {
     oficinaExistente.vehicles.push(veiculoExistente._id);
     await oficinaExistente.save();
@@ -40,6 +52,7 @@ exports.createManutencao = async (data) => {
 
   return manutencao;
 };
+
 
 
   // Listar Todas as Manutenção
