@@ -1,36 +1,24 @@
+// index.js
 const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-
-const connectDB = require('./db');
-const oficinaRoutes = require('./src/routes/oficinaRoutes');
-const veiculoRoutes = require('./src/routes/veiculoRoutes');
-const manutencaoRoutes = require('./src/routes/manutencaoRoutes');
-
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
+app.use(express.json()); // garante que o body seja interpretado como JSON
 
-// Rotas principais
-app.use('/api/oficinas', oficinaRoutes);
-app.use('/api/veiculos', veiculoRoutes);
-app.use('/api/manutencoes', manutencaoRoutes);
+app.post('/somar-valores', (req, res) => {
+  const { valores } = req.body;
 
-// Rota inicial de teste
-app.get('/', (req, res) => {
-  res.send('API Oficina Mecânica funcionando 🚗🔧');
+  // valida se 'valores' existe e é um array
+  if (!Array.isArray(valores)) {
+    return res.status(400).json({ message: "O campo 'valores' deve ser um array" });
+  }
+
+  // usa reduce com segurança
+  const soma = valores.reduce((acc, num) => acc + num, 0);
+
+  res.json({ resultado: soma });
 });
 
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Servidor rodando na porta ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.error('Erro ao conectar no MongoDB:', error.message);
-  });
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
+});
 
-  
