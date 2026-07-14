@@ -1,6 +1,7 @@
 {
   "name": "oficinamecanica",
   "version": "1.0.0",
+  "type": "module",
   "description": "API REST para gerenciar oficinas mecânicas",
   "main": "index.js",
   "scripts": {

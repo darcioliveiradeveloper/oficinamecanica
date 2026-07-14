@@ -1,13 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const oficinaController = require('../controllers/oficinaController');
+import express from 'express';
+import * as oficinaController from '../controllers/oficinaController.js'; // Note o .js no final
 
-// Rotas CRUD Oficina
+const router = express.Router();
+
+// Rotas CRUD Oficinas
 router.post('/', oficinaController.createOficina);
 router.get('/', oficinaController.getOficinas);
 router.get('/:id', oficinaController.getOficinaById);
 router.put('/:id', oficinaController.updateOficina);
 router.delete('/:id', oficinaController.deleteOficina);
-router.get('/:id/vehicles', oficinaController.getVehiclesByOficina);
 
-module.exports = router;
+// Exportação moderna compatível com o index.js
+export default router;

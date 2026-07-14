@@ -1,14 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const veiculoController = require('../controllers/veiculoController');
+import express from 'express';
+import * as veiculoController from '../controllers/veiculoController.js'; // Note o .js no final
 
-// Rotas CRUD Veículo
+const router = express.Router();
+
+// Rotas CRUD Veículos
 router.post('/', veiculoController.createVeiculo);
 router.get('/', veiculoController.getVeiculos);
 router.get('/:id', veiculoController.getVeiculoById);
 router.put('/:id', veiculoController.updateVeiculo);
 router.delete('/:id', veiculoController.deleteVeiculo);
-router.get('/:id/maintenances', veiculoController.getMaintenancesByVeiculo);
 
-module.exports = router;
-
+// Exportação moderna compatível com o index.js
+export default router;

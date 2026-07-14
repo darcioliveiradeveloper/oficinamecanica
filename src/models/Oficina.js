@@ -15,14 +15,10 @@ const OficinaSchema = new mongoose.Schema({
   },
   vehicles: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehicle'
-    
+    ref: 'Veiculo' // Corrigido de 'Vehicle' para o nome correto do model 'Veiculo'
   }]
 }, {
   timestamps: true
 });
 
-
-
 module.exports = mongoose.model('Oficina', OficinaSchema);
-

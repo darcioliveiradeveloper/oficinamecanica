@@ -1,7 +1,8 @@
-const veiculoService = require('../services/veiculoService');
+// src/controllers/veiculoController.js
+import * as veiculoService from '../services/veiculoService.js';
 
 // Criar Veículo
-exports.createVeiculo = async (req, res) => {
+export const createVeiculo = async (req, res) => {
   try {
     const veiculo = await veiculoService.createVeiculo(req.body);
     res.status(201).json({
@@ -14,7 +15,7 @@ exports.createVeiculo = async (req, res) => {
 };
 
 // Listar Veículos
-exports.getVeiculos = async (req, res) => {
+export const getVeiculos = async (req, res) => {
   try {
     const veiculos = await veiculoService.getVeiculos();
     if (veiculos.length === 0) {
@@ -29,11 +30,10 @@ exports.getVeiculos = async (req, res) => {
   }
 };
 
-
 // Listar Veículo por ID
-exports.getVeiculoById = async (req, res) => {
+export const getVeiculoById = async (req, res) => {
   try {
-    const veiculo = await veiculoService.getVeiculosById(req.params.id);
+    const veiculo = await veiculoService.getVeiculoById(req.params.id);
     if (!veiculo) {
       return res.status(404).json({ message: 'Veículo não encontrado' });
     }
@@ -47,7 +47,7 @@ exports.getVeiculoById = async (req, res) => {
 };
 
 // Atualizar Veículo
-exports.updateVeiculo = async (req, res) => {
+export const updateVeiculo = async (req, res) => {
   try {
     const veiculo = await veiculoService.updateVeiculo(req.params.id, req.body);
     if (!veiculo) {
@@ -63,7 +63,7 @@ exports.updateVeiculo = async (req, res) => {
 };
 
 // Deletar Veículo
-exports.deleteVeiculo = async (req, res) => {
+export const deleteVeiculo = async (req, res) => {
   try {
     const veiculo = await veiculoService.deleteVeiculo(req.params.id);
     if (!veiculo) {
@@ -76,7 +76,7 @@ exports.deleteVeiculo = async (req, res) => {
 };
 
 // Listar Manutenções de um Veículo
-exports.getMaintenancesByVeiculo = async (req, res) => {
+export const getMaintenancesByVeiculo = async (req, res) => {
   try {
     const maintenances = await veiculoService.getMaintenancesByVeiculo(req.params.id);
     if (maintenances === null) {
@@ -93,4 +93,3 @@ exports.getMaintenancesByVeiculo = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-

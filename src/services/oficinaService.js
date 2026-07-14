@@ -1,7 +1,6 @@
 const Oficina = require('../models/Oficina');
 
 // Criar Oficina
-// src/services/oficinaService.js
 exports.createOficina = async (data) => {
   const oficinaExistente = await Oficina.findOne({ name: data.name });
   if (oficinaExistente) {
@@ -10,7 +9,6 @@ exports.createOficina = async (data) => {
   const oficina = new Oficina(data);
   return await oficina.save();
 };
-
 
 // Listar Oficinas
 exports.getOficinas = async () => {
@@ -37,4 +35,3 @@ exports.getVehiclesByOficina = async (id) => {
   const oficina = await Oficina.findById(id).populate('vehicles');
   return oficina ? oficina.vehicles : null;
 };
-

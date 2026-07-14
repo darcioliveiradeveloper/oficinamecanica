@@ -1,7 +1,8 @@
-const oficinaService = require('../services/oficinaService');
+// src/controllers/oficinaController.js
+import * as oficinaService from '../services/oficinaService.js';
 
 // Criar Oficina
-exports.createOficina = async (req, res) => {
+export const createOficina = async (req, res) => {
   try {
     const oficina = await oficinaService.createOficina(req.body);
     res.status(201).json({
@@ -14,7 +15,7 @@ exports.createOficina = async (req, res) => {
 };
 
 // Listar Oficinas
-exports.getOficinas = async (req, res) => {
+export const getOficinas = async (req, res) => {
   try {
     const oficinas = await oficinaService.getOficinas();
     if (oficinas.length === 0) {
@@ -30,7 +31,7 @@ exports.getOficinas = async (req, res) => {
 };
 
 // Listar Oficina por ID
-exports.getOficinaById = async (req, res) => {
+export const getOficinaById = async (req, res) => {
   try {
     const oficina = await oficinaService.getOficinaById(req.params.id);
     if (!oficina) {
@@ -46,7 +47,7 @@ exports.getOficinaById = async (req, res) => {
 };
 
 // Atualizar Oficina
-exports.updateOficina = async (req, res) => {
+export const updateOficina = async (req, res) => {
   try {
     const oficina = await oficinaService.updateOficina(req.params.id, req.body);
     if (!oficina) {
@@ -62,7 +63,7 @@ exports.updateOficina = async (req, res) => {
 };
 
 // Deletar Oficina
-exports.deleteOficina = async (req, res) => {
+export const deleteOficina = async (req, res) => {
   try {
     const oficina = await oficinaService.deleteOficina(req.params.id);
     if (!oficina) {
@@ -75,7 +76,7 @@ exports.deleteOficina = async (req, res) => {
 };
 
 // Listar Veículos atendidos por uma Oficina
-exports.getVehiclesByOficina = async (req, res) => {
+export const getVehiclesByOficina = async (req, res) => {
   try {
     const vehicles = await oficinaService.getVehiclesByOficina(req.params.id);
     if (vehicles === null) {

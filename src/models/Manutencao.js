@@ -13,18 +13,17 @@ const ManutencaoSchema = new mongoose.Schema({
   totalCost: { type: Number, default: 0 }
 }, { timestamps: true });
 
-// Calcula o total automaticamente
+// Calcula o total automaticamente antes de salvar no banco
 ManutencaoSchema.pre('save', function (next) {
-
- // Ajusta horário para 00:00:00
- if (this.date) {
-  this.date.setHours(0, 0, 0, 0);
-}
+  // Ajusta horário para 00:00:00
+  if (this.date) {
+    this.date.setHours(0, 0, 0, 0);
+  }
 
   if (this.services && this.services.length > 0) {
     this.totalCost = this.services.reduce((sum, s) => sum + s.price, 0);
   }
-  // next();
+  next(); // Chamada reativada para fluxo assíncrono correto
 });
 
 module.exports = mongoose.model('Manutencao', ManutencaoSchema);

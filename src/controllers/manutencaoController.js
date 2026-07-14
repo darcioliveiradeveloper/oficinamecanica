@@ -1,7 +1,8 @@
-const manutencaoService = require('../services/manutencaoService');
+// src/controllers/manutencaoController.js
+import * as manutencaoService from '../services/manutencaoService.js';
 
 // Criar Manutenção
-exports.createManutencao = async (req, res) => {
+export const createManutencao = async (req, res) => {
   try {
     const manutencao = await manutencaoService.createManutencao(req.body);
     res.status(201).json({
@@ -14,7 +15,7 @@ exports.createManutencao = async (req, res) => {
 };
 
 // Listar Manutenções
-exports.getManutencoes = async (req, res) => {
+export const getManutencoes = async (req, res) => {
   try {
     const manutencoes = await manutencaoService.getManutencoes();
     if (manutencoes.length === 0) {
@@ -30,23 +31,23 @@ exports.getManutencoes = async (req, res) => {
 };
 
 // Listar Manutenção por ID
-exports.getManutencaoById = async (req, res) => {
-    try {
-        const manutencao = await manutencaoService.getManutencaoById(req.params.id);
-        if (!manutencao) {
-        return res.status(404).json({ message: 'Manutenção não encontrada' });
-        }
-        res.json({
-        message: 'Manutenção encontrada',
-        data: manutencao
-        });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+export const getManutencaoById = async (req, res) => {
+  try {
+    const manutencao = await manutencaoService.getManutencaoById(req.params.id);
+    if (!manutencao) {
+      return res.status(404).json({ message: 'Manutenção não encontrada' });
     }
-    };
+    res.json({
+      message: 'Manutenção encontrada',
+      data: manutencao
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // Atualizar Manutenção
-exports.updateManutencao = async (req, res) => {
+export const updateManutencao = async (req, res) => {
   try {
     const manutencao = await manutencaoService.updateManutencao(req.params.id, req.body);
     if (!manutencao) {
@@ -62,7 +63,7 @@ exports.updateManutencao = async (req, res) => {
 };
 
 // Deletar Manutenção
-exports.deleteManutencao = async (req, res) => {
+export const deleteManutencao = async (req, res) => {
   try {
     const manutencao = await manutencaoService.deleteManutencao(req.params.id);
     if (!manutencao) {
@@ -75,7 +76,7 @@ exports.deleteManutencao = async (req, res) => {
 };
 
 // Buscar Manutenções por Veículo
-exports.getManutencoesByVeiculo = async (req, res) => {
+export const getManutencoesByVeiculo = async (req, res) => {
   try {
     const manutencoes = await manutencaoService.getManutencoesByVeiculo(req.params.veiculoId);
     if (manutencoes.length === 0) {
@@ -91,7 +92,7 @@ exports.getManutencoesByVeiculo = async (req, res) => {
 };
 
 // Buscar Manutenções por Oficina
-exports.getManutencoesByOficina = async (req, res) => {
+export const getManutencoesByOficina = async (req, res) => {
   try {
     const manutencoes = await manutencaoService.getManutencoesByOficina(req.params.oficinaId);
     if (manutencoes.length === 0) {
@@ -105,4 +106,3 @@ exports.getManutencoesByOficina = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-

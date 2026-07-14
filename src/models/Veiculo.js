@@ -27,4 +27,3 @@ const VeiculoSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Veiculo', VeiculoSchema);
-
