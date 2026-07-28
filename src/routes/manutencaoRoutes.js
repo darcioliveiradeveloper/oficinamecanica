@@ -1,18 +1,27 @@
 import express from 'express';
-import * as manutencaoController from '../controllers/manutencaoController.js'; // Lembre-se de adicionar o .js no final do caminho
+import {
+  createManutencao,
+  getManutencoes,
+  getManutencaoById,
+  updateManutencao,
+  deleteManutencao,
+  getManutencoesByVeiculo,
+  getManutencoesByOficina
+} from '../controllers/manutencaoController.js';
 
 const router = express.Router();
 
 // Rotas CRUD Manutenção
-router.post('/', manutencaoController.createManutencao);
-router.get('/', manutencaoController.getManutencoes);
-router.get('/:id', manutencaoController.getManutencaoById);
-router.put('/:id', manutencaoController.updateManutencao);
-router.delete('/:id', manutencaoController.deleteManutencao);
+router.post('/', createManutencao);
+router.get('/', getManutencoes);
+router.get('/:id', getManutencaoById);
+router.put('/:id', updateManutencao);
+router.delete('/:id', deleteManutencao);
 
 // Rotas de filtragem adicionais
-router.get('/veiculo/:veiculoId', manutencaoController.getManutencoesByVeiculo);
-router.get('/oficina/:oficinaId', manutencaoController.getManutencoesByOficina);
+router.get('/veiculo/:veiculoId', getManutencoesByVeiculo);
+router.get('/oficina/:oficinaId', getManutencoesByOficina);
 
-// Exportação moderna (ES Module) compatível com o seu index.js
 export default router;
+
+// Arquivo: manutencaoRoutes.js | Modificado em: 27/07/2026

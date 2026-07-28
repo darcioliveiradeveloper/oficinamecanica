@@ -1,10 +1,16 @@
-// src/controllers/oficinaController.js
-import * as oficinaService from '../services/oficinaService.js';
+import {
+  createOficina as createOficinaService,
+  getOficinas as getOficinasService,
+  getOficinaById as getOficinaByIdService,
+  updateOficina as updateOficinaService,
+  deleteOficina as deleteOficinaService,
+  getVehiclesByOficina as getVehiclesByOficinaService
+} from '../services/oficinaService.js';
 
 // Criar Oficina
 export const createOficina = async (req, res) => {
   try {
-    const oficina = await oficinaService.createOficina(req.body);
+    const oficina = await createOficinaService(req.body);
     res.status(201).json({
       message: 'Oficina cadastrada com sucesso 🚀',
       data: oficina
@@ -17,8 +23,8 @@ export const createOficina = async (req, res) => {
 // Listar Oficinas
 export const getOficinas = async (req, res) => {
   try {
-    const oficinas = await oficinaService.getOficinas();
-    if (oficinas.length === 0) {
+    const oficinas = await getOficinasService();
+    if (!oficinas || oficinas.length === 0) {
       return res.status(404).json({ message: 'Nenhuma oficina cadastrada até o momento' });
     }
     res.json({
@@ -33,7 +39,7 @@ export const getOficinas = async (req, res) => {
 // Listar Oficina por ID
 export const getOficinaById = async (req, res) => {
   try {
-    const oficina = await oficinaService.getOficinaById(req.params.id);
+    const oficina = await getOficinaByIdService(req.params.id);
     if (!oficina) {
       return res.status(404).json({ message: 'Oficina não encontrada' });
     }
@@ -49,7 +55,7 @@ export const getOficinaById = async (req, res) => {
 // Atualizar Oficina
 export const updateOficina = async (req, res) => {
   try {
-    const oficina = await oficinaService.updateOficina(req.params.id, req.body);
+    const oficina = await updateOficinaService(req.params.id, req.body);
     if (!oficina) {
       return res.status(404).json({ message: 'Oficina não encontrada' });
     }
@@ -65,7 +71,7 @@ export const updateOficina = async (req, res) => {
 // Deletar Oficina
 export const deleteOficina = async (req, res) => {
   try {
-    const oficina = await oficinaService.deleteOficina(req.params.id);
+    const oficina = await deleteOficinaService(req.params.id);
     if (!oficina) {
       return res.status(404).json({ message: 'Oficina não encontrada' });
     }
@@ -78,7 +84,7 @@ export const deleteOficina = async (req, res) => {
 // Listar Veículos atendidos por uma Oficina
 export const getVehiclesByOficina = async (req, res) => {
   try {
-    const vehicles = await oficinaService.getVehiclesByOficina(req.params.id);
+    const vehicles = await getVehiclesByOficinaService(req.params.id);
     if (vehicles === null) {
       return res.status(404).json({ message: 'Oficina não encontrada' });
     }
@@ -93,3 +99,5 @@ export const getVehiclesByOficina = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Arquivo: oficinaController.js | Modificado em: 27/07/2026

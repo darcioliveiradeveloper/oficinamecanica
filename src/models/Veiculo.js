@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const VeiculoSchema = new mongoose.Schema({
   plate: {
@@ -26,4 +26,6 @@ const VeiculoSchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Veiculo', VeiculoSchema);
+export default mongoose.model('Veiculo', VeiculoSchema);
+
+// Arquivo: Veiculo.js | Modificado em: 27/07/2026

@@ -1,9 +1,10 @@
-const Manutencao = require('../models/Manutencao');
-const Veiculo = require('../models/Veiculo');
-const Oficina = require('../models/Oficina');
+// src/services/manutencaoService.js
+import Manutencao from '../models/Manutencao.js';
+import Veiculo from '../models/Veiculo.js';
+import Oficina from '../models/Oficina.js';
 
 // Criar Manutenção
-exports.createManutencao = async (data) => {
+export const createManutencao = async (data) => {
   const veiculoExistente = await Veiculo.findById(data.veiculo);
   if (!veiculoExistente) throw new Error('Veículo não encontrado');
 
@@ -44,31 +45,31 @@ exports.createManutencao = async (data) => {
 };
 
 // Listar Todas as Manutenções
-exports.getManutencoes = async () => {
+export const getManutencoes = async () => {
   return await Manutencao.find();
 };
 
 // Listar Manutenção por ID
-exports.getManutencaoById = async (id) => {
+export const getManutencaoById = async (id) => {
   return await Manutencao.findById(id);
 };
 
-// Atualizar Manutenção (Corrigido o nome da função e o Model de alteração)
-exports.updateManutencao = async (id, data) => {
+// Atualizar Manutenção
+export const updateManutencao = async (id, data) => {
   return await Manutencao.findByIdAndUpdate(id, data, { new: true });
 };
 
 // Deletar Manutenção
-exports.deleteManutencao = async (id) => {
+export const deleteManutencao = async (id) => {
   return await Manutencao.findByIdAndDelete(id);
 };
 
-// Buscar Manutenções por Veículo (Método adicionado)
-exports.getManutencoesByVeiculo = async (veiculoId) => {
+// Buscar Manutenções por Veículo
+export const getManutencoesByVeiculo = async (veiculoId) => {
   return await Manutencao.find({ veiculo: veiculoId });
 };
 
-// Buscar Manutenções por Oficina (Método adicionado)
-exports.getManutencoesByOficina = async (oficinaId) => {
+// Buscar Manutenções por Oficina
+export const getManutencoesByOficina = async (oficinaId) => {
   return await Manutencao.find({ oficina: oficinaId });
 };

@@ -1,14 +1,21 @@
 import express from 'express';
-import * as oficinaController from '../controllers/oficinaController.js'; // Note o .js no final
+import {
+  createOficina,
+  getOficinas,
+  getOficinaById,
+  updateOficina,
+  deleteOficina
+} from '../controllers/oficinaController.js';
 
 const router = express.Router();
 
 // Rotas CRUD Oficinas
-router.post('/', oficinaController.createOficina);
-router.get('/', oficinaController.getOficinas);
-router.get('/:id', oficinaController.getOficinaById);
-router.put('/:id', oficinaController.updateOficina);
-router.delete('/:id', oficinaController.deleteOficina);
+router.post('/', createOficina);
+router.get('/', getOficinas);
+router.get('/:id', getOficinaById);
+router.put('/:id', updateOficina);
+router.delete('/:id', deleteOficina);
 
-// Exportação moderna compatível com o index.js
 export default router;
+
+// Arquivo: oficinaRoutes.js | Modificado em: 27/07/2026

@@ -1,14 +1,21 @@
 import express from 'express';
-import * as veiculoController from '../controllers/veiculoController.js'; // Note o .js no final
+import {
+  createVeiculo,
+  getVeiculos,
+  getVeiculoById,
+  updateVeiculo,
+  deleteVeiculo
+} from '../controllers/veiculoController.js';
 
 const router = express.Router();
 
 // Rotas CRUD Veículos
-router.post('/', veiculoController.createVeiculo);
-router.get('/', veiculoController.getVeiculos);
-router.get('/:id', veiculoController.getVeiculoById);
-router.put('/:id', veiculoController.updateVeiculo);
-router.delete('/:id', veiculoController.deleteVeiculo);
+router.post('/', createVeiculo);
+router.get('/', getVeiculos);
+router.get('/:id', getVeiculoById);
+router.put('/:id', updateVeiculo);
+router.delete('/:id', deleteVeiculo);
 
-// Exportação moderna compatível com o index.js
 export default router;
+
+// Arquivo: veiculoRoutes.js | Modificado em: 27/07/2026

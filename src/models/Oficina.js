@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const OficinaSchema = new mongoose.Schema({
   name: {
@@ -15,10 +15,12 @@ const OficinaSchema = new mongoose.Schema({
   },
   vehicles: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Veiculo' // Corrigido de 'Vehicle' para o nome correto do model 'Veiculo'
+    ref: 'Veiculo'
   }]
 }, {
   timestamps: true
 });
 
-module.exports = mongoose.model('Oficina', OficinaSchema);
+export default mongoose.model('Oficina', OficinaSchema);
+
+// Arquivo: Oficina.js | Modificado em: 27/07/2026

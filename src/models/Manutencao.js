@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ServiceSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -23,7 +23,9 @@ ManutencaoSchema.pre('save', function (next) {
   if (this.services && this.services.length > 0) {
     this.totalCost = this.services.reduce((sum, s) => sum + s.price, 0);
   }
-  next(); // Chamada reativada para fluxo assíncrono correto
+  next();
 });
 
-module.exports = mongoose.model('Manutencao', ManutencaoSchema);
+export default mongoose.model('Manutencao', ManutencaoSchema);
+
+// Arquivo: Manutencao.js | Modificado em: 27/07/2026

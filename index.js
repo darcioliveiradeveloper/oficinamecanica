@@ -4,10 +4,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './db.js'; 
 
-// Importando as rotas da pasta src
-import { router as veiculoRoutes } from './src/routes/veiculoRoutes.js';
-import { router as oficinaRoutes } from './src/routes/oficinaRoutes.js';
-import { router as manutencaoRoutes } from './src/routes/manutencaoRoutes.js';
+// Importando as rotas da pasta src (Importação Default)
+import veiculoRoutes from './src/routes/veiculoRoutes.js';
+import oficinaRoutes from './src/routes/oficinaRoutes.js';
+import manutencaoRoutes from './src/routes/manutencaoRoutes.js';
 
 // Carrega as variáveis de ambiente do arquivo .env
 dotenv.config();
@@ -43,3 +43,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando com sucesso na porta ${PORT}`);
 });
+
+// Arquivo: index.js | Modificado em: 27/07/2026
